@@ -86,21 +86,88 @@
                         <input type="text" class="from-control" name="password" placeholder="password" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <select class="form-control" name="role" required>
-                        <option value="" hidden>-- Pilih Role --</option>
-                        <option value="admin">Admin</option>
-                        <option value="kasir">Kasir</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select class="form-control" name="role" required>
+                            <option value="" hidden>-- Pilih Role --</option>
+                            <option value="admin">Admin</option>
+                            <option value="kasir">Kasir</option>
+                        </select>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-undo"></i>Close</button>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save changes</button>
                     </div>
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
+
+@foreach ($data_user as $row)
+<div class="modal fade" id="modalEdit{{ $d->$id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Data User</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/user/update/{{ $d->id }}">
+                @csrf
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" value="{{ $d->nama_lengkap }}" class="from-control" name="name" placeholder="nama lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" value="{{ $d->email }}" class="from-control" name="email" placeholder="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>password</label>
+                            <input type="text" class="from-control" name="password" placeholder="password" required>
+                        </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select class="form-control" name="role" required>
+                            <option <?php if($d['role']=="admin") echo "selected"; ?> value="admin">Admin</option>
+                            <option <?php if($d['role']=="kasir") echo "selected"; ?> value="kasir">Kasir</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-undo"></i>Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+@foreach ($data_user as $row)
+<div class="modal fade" id="modalHapus{{ $d->$id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hapus Data User</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <form method="GET" action="/user/update/{{ $d->id }}">
+            @csrf
+                <div class="modal-body">
+                        <div class="form-group">
+                            <h5>Apakah Anda Ingin Menghappus Data ini?</h5>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-undo"></i>Close</button>
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-save"></i>Hapus</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection
